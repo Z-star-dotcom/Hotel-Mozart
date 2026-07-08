@@ -70,8 +70,22 @@
   .loc-stat:hover, .house-facts div:hover{transform:translateY(-3px);}
 
   /* ---------- DEMO WATERMARK ---------- */
-  .demo-badge{
-    position:fixed; z-index:200; bottom:18px; right:18px;
+  .demo-watermark{
+    position:fixed; inset:0; z-index:500; pointer-events:none;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .demo-watermark span{
+    font-family:var(--serif); font-weight:700;
+    font-size:22vw; letter-spacing:0.04em;
+    color:rgba(246,240,228,0.09);
+    transform:rotate(-30deg);
+    white-space:nowrap; user-select:none;
+  }
+  @media (max-width:700px){
+    .demo-watermark span{font-size:34vw;}
+  }
+  .demo-tag{
+    position:fixed; z-index:500; bottom:18px; right:18px;
     display:flex; align-items:center; gap:8px;
     background:rgba(10,25,23,0.88); backdrop-filter:blur(6px);
     border:1px solid var(--gold); color:var(--gold-bright);
@@ -81,14 +95,14 @@
     box-shadow:0 8px 24px rgba(0,0,0,0.35);
     pointer-events:none;
   }
-  .demo-badge .dot{
+  .demo-tag .dot{
     width:6px; height:6px; border-radius:50%; background:var(--gold-bright);
     animation:demoPulse 1.8s ease-in-out infinite;
   }
   @keyframes demoPulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
-  @media (prefers-reduced-motion: reduce){ .demo-badge .dot{animation:none;} }
+  @media (prefers-reduced-motion: reduce){ .demo-tag .dot{animation:none;} }
   @media (max-width:600px){
-    .demo-badge{bottom:12px; right:12px; padding:7px 13px; font-size:10px;}
+    .demo-tag{bottom:12px; right:12px; padding:7px 13px; font-size:10px;}
   }
 
   /* ---------- NAV ---------- */
@@ -357,7 +371,8 @@
 </head>
 <body>
 
-<div class="demo-badge"><span class="dot"></span><span data-i18n="demo_badge">Concept Demo — Not an Official Site</span></div>
+<div class="demo-watermark" aria-hidden="true"><span>DEMO</span></div>
+<div class="demo-tag"><span class="dot"></span><span data-i18n="demo_badge">Concept Demo — Not an Official Site</span></div>
 
 <nav id="nav">
   <div class="brand">Hôtel Mozart</div>
