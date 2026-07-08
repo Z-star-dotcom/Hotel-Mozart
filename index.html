@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hôtel Mozart Bruxelles — Brussels' Most Eccentric Address, Steps from the Grand Place</title>
+<meta name="description" content="Hôtel Mozart: a 17th-century house turned into seventeen wildly individual rooms, fifty metres from the Grand Place, Brussels. Handmade, a little mad, and unlike anywhere else in the city." />
+<link href="https://fonts.googleapis.com" rel="preconnect" />
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a1917;
+    --bg-panel:#0f231f;
+    --ink:#f6f0e4;
+    --muted:rgba(246,240,228,0.66);
+    --muted-soft:rgba(246,240,228,0.42);
+    --gold:#c7a765;
+    --gold-bright:#e4cd9a;
+    --line:rgba(199,167,101,0.22);
+    --serif:'Playfair Display', serif;
+    --display:'Cormorant Garamond', serif;
+    --sans:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-weight:300; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  ::selection{background:var(--gold); color:#171310;}
+
+  .container{max-width:1240px; margin:0 auto; padding:0 40px;}
+  h1,h2,h3{font-family:var(--serif); font-weight:600; margin:0; letter-spacing:0.005em;}
+  .eyebrow{
+    font-family:var(--sans); text-transform:uppercase; letter-spacing:0.32em;
+    font-size:11px; color:var(--gold); font-weight:500;
+  }
+
+  /* scroll-reveal: driven by a plain scroll-position poll (see script), not
+     IntersectionObserver — verified more reliable across environments. */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s cubic-bezier(.2,.7,.3,1), transform .8s cubic-bezier(.2,.7,.3,1);}
+  .reveal.in{opacity:1; transform:none;}
+  .stagger.in > *{opacity:0; transform:translateY(24px); animation:staggerIn .7s cubic-bezier(.2,.7,.3,1) forwards;}
+  .stagger.in > *:nth-child(1){animation-delay:.05s;}
+  .stagger.in > *:nth-child(2){animation-delay:.16s;}
+  .stagger.in > *:nth-child(3){animation-delay:.27s;}
+  .stagger.in > *:nth-child(4){animation-delay:.38s;}
+  .stagger.in > *:nth-child(5){animation-delay:.49s;}
+  @keyframes staggerIn{to{opacity:1; transform:none;}}
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .stagger.in > *{opacity:1 !important; transform:none !important; animation:none !important; transition:none !important;}
+  }
+
+  /* hover polish */
+  .btn{position:relative; overflow:hidden;}
+  .btn-solid:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(199,167,101,0.3);}
+  .btn-ghost:hover{transform:translateY(-2px);}
+  .btn{transition:transform .3s ease, box-shadow .3s ease, background-color .3s ease, border-color .3s ease;}
+  .nav-links a{position:relative;}
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-6px; width:0; height:1px; background:var(--gold);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover::after{width:100%;}
+  .loc-stat, .house-facts div{transition:transform .3s ease;}
+  .loc-stat:hover, .house-facts div:hover{transform:translateY(-3px);}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:60;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:28px 44px; transition:padding .4s ease, background .4s ease, border-color .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{
+    padding:18px 44px; background:rgba(10,25,23,0.86); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{font-family:var(--serif); font-size:19px; letter-spacing:0.05em; color:var(--gold-bright);}
+  .nav-links{display:flex; align-items:center; gap:40px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    font-size:12px; text-transform:uppercase; letter-spacing:0.16em;
+    text-decoration:none; color:var(--ink); opacity:0.78; transition:opacity .25s;
+  }
+  .nav-links a:hover{opacity:1;}
+  .nav-right{display:flex; align-items:center; gap:22px;}
+  .lang-switch{display:flex; align-items:center; gap:2px;}
+  .lang-btn{
+    background:none; border:none; cursor:pointer; font-family:var(--sans);
+    font-size:11px; letter-spacing:0.08em; color:var(--muted-soft);
+    padding:6px 7px; transition:color .2s;
+  }
+  .lang-btn:hover{color:var(--ink);}
+  .lang-btn.active{color:var(--gold-bright); font-weight:600;}
+  .nav-cta{
+    border:1px solid var(--gold); padding:10px 22px; font-size:11px;
+    text-transform:uppercase; letter-spacing:0.16em; text-decoration:none;
+    color:var(--gold-bright); transition:background .25s, color .25s;
+    animation:goldGlow 3.4s ease-in-out infinite;
+  }
+  .nav-cta:hover{background:var(--gold); color:#171310;}
+
+  /* subtle reserve-button glow — a toned-down, warm echo of the "lamp" glow idea */
+  @keyframes goldGlow{
+    0%, 100% { box-shadow:0 0 0 rgba(199,167,101,0); }
+    50% { box-shadow:0 0 18px rgba(199,167,101,0.45); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .nav-cta, .btn-solid, form.book button{animation:none !important;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; height:100vh; min-height:640px;
+    display:flex; align-items:center;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0; z-index:0;
+    background:url('images/hero-facade.jpg') center 30%/cover no-repeat;
+    transform:scale(1.08);
+  }
+  .hero-bg::after{
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(8,20,18,0.55) 0%, rgba(8,20,18,0.25) 35%, rgba(8,20,18,0.85) 100%);
+  }
+  .hero-inner{position:relative; z-index:2; width:100%;}
+  .hero-tag{color:var(--gold-bright); font-size:12px; letter-spacing:0.34em; text-transform:uppercase; margin-bottom:26px; opacity:0.9;}
+  .hero h1{
+    font-size:clamp(38px, 6.6vw, 84px); line-height:1.06;
+    max-width:900px; color:#fff; text-shadow:0 6px 40px rgba(0,0,0,0.35);
+  }
+  .hero p.lede{
+    font-family:var(--display); font-size:22px; font-style:italic;
+    max-width:520px; margin-top:26px; color:rgba(246,240,228,0.88);
+  }
+  .hero-ctas{display:flex; gap:18px; margin-top:40px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; padding:15px 32px; text-decoration:none;
+    letter-spacing:0.18em; text-transform:uppercase; font-size:11.5px; font-weight:500;
+    transition:all .3s ease; border:1px solid var(--gold);
+  }
+  .btn-solid{background:var(--gold); color:#171310; animation:goldGlow 3.4s ease-in-out infinite;}
+  .btn-solid:hover{background:var(--gold-bright); border-color:var(--gold-bright);}
+  .btn-ghost{color:#fff; border-color:rgba(255,255,255,0.45);}
+  .btn-ghost:hover{border-color:#fff;}
+
+  .scroll-cue{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    z-index:2; width:1px; height:52px; background:linear-gradient(var(--gold), transparent);
+    opacity:0.7;
+  }
+
+  /* ---------- SECTIONS (generic) ---------- */
+  section{position:relative; padding:150px 0;}
+  .section-head{max-width:640px; margin:0 0 70px;}
+  .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+  .section-head h2{font-size:clamp(30px,3.8vw,50px); margin-top:16px;}
+  .panel{background:var(--bg-panel);}
+
+  /* ---------- AMBIANCE (photo moment) ---------- */
+  .ambiance-wrap{
+    position:relative; height:72vh; min-height:460px; max-height:680px; overflow:hidden;
+  }
+  .ambiance-wrap img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    transform:scale(1.05);
+  }
+  .ambiance-wrap::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(8,20,18,0.15) 0%, rgba(8,20,18,0.55) 100%);
+  }
+  .ambiance-copy{
+    position:absolute; inset:0; z-index:3; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    padding:0 24px;
+  }
+  .ambiance-copy .eyebrow{margin-bottom:18px;}
+  .ambiance-copy h2{font-size:clamp(26px,4vw,46px); color:#fff; text-shadow:0 4px 30px rgba(0,0,0,0.5);}
+  .ambiance-copy p{
+    font-family:var(--display); font-style:italic; font-size:19px; margin-top:16px;
+    color:rgba(246,240,228,0.85); max-width:460px;
+  }
+
+  /* ---------- THE HOUSE ---------- */
+  .house{display:grid; grid-template-columns:1.05fr 0.95fr; gap:0; align-items:stretch;}
+  .house-img{position:relative; min-height:520px; overflow:hidden;}
+  .house-img img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
+  .house-copy{display:flex; flex-direction:column; justify-content:center; padding:80px 70px;}
+  .house-copy h2{font-size:clamp(28px,3.2vw,42px); margin:16px 0 26px;}
+  .house-copy p{color:var(--muted); margin-bottom:18px; font-size:16px;}
+  .house-facts{display:flex; gap:40px; margin-top:30px; padding-top:30px; border-top:1px solid var(--line);}
+  .house-facts div b{font-family:var(--serif); font-size:30px; color:var(--gold-bright); display:block;}
+  .house-facts div span{font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted-soft);}
+
+  /* ---------- ROOMS ---------- */
+  .rooms-feature{display:grid; grid-template-columns:1.3fr 1fr; gap:26px; margin-bottom:26px;}
+  .room-tile{position:relative; overflow:hidden; min-height:340px; cursor:pointer;}
+  .room-tile img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0; transition:transform .8s ease;}
+  .room-tile:hover img{transform:scale(1.05);}
+  .room-tile::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 40%, rgba(6,16,14,0.92) 100%);
+  }
+  .room-tile .room-info{position:absolute; left:0; right:0; bottom:0; z-index:2; padding:30px 34px;}
+  .room-tile .room-no{color:var(--gold-bright); font-size:11px; letter-spacing:0.2em; text-transform:uppercase; opacity:0.9;}
+  .room-tile h3{font-size:27px; color:#fff; margin:8px 0 6px;}
+  .room-tile .room-price{font-family:var(--display); font-size:17px; color:rgba(246,240,228,0.85);}
+  .room-tile .room-price b{color:var(--gold-bright); font-family:var(--serif); font-size:20px;}
+  .room-tile .room-desc{font-size:13.5px; color:rgba(246,240,228,0.7); margin-top:8px; max-width:340px;}
+  .rooms-secondary{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+  .rooms-secondary .room-tile{min-height:280px;}
+
+  /* ---------- GALLERY ---------- */
+  .gallery-grid{
+    display:grid; grid-template-columns:repeat(6, 1fr); grid-auto-rows:150px; gap:14px;
+  }
+  .gallery-grid img{width:100%; height:100%; object-fit:cover;}
+  .g1{grid-column:span 3; grid-row:span 2;}
+  .g2{grid-column:span 3; grid-row:span 2;}
+  .g3{grid-column:span 2; grid-row:span 2;}
+  .g4{grid-column:span 2; grid-row:span 2;}
+  .g5{grid-column:span 2; grid-row:span 2;}
+  .gallery-grid a{display:block; overflow:hidden; position:relative;}
+  .gallery-grid a img{transition:transform .6s ease;}
+  .gallery-grid a:hover img{transform:scale(1.06);}
+
+  /* ---------- MOMENTS (sticky stacking cards) ---------- */
+  .moments{position:relative;}
+  .moments .section-head{position:relative; z-index:5; background:var(--bg); padding-bottom:20px;}
+  .stack-card{
+    position:sticky; top:0; height:100vh; min-height:480px;
+    display:flex; align-items:flex-end; overflow:hidden;
+    will-change:transform, filter;
+  }
+  .stack-card img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .stack-card::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(8,20,18,0.05) 30%, rgba(8,20,18,0.82) 100%);
+  }
+  .stack-card .stack-copy{
+    position:relative; z-index:2; padding:0 40px 80px; max-width:640px;
+  }
+  .stack-card .stack-no{color:var(--gold-bright); font-size:12px; letter-spacing:0.2em; text-transform:uppercase; opacity:0.9;}
+  .stack-card .stack-copy p{
+    font-family:var(--display); font-style:italic; font-size:clamp(22px,3vw,34px);
+    color:#fff; margin-top:10px; text-shadow:0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  /* ---------- AMENITIES ---------- */
+  .amen-row{display:grid; grid-template-columns:repeat(5,1fr);}
+  .amen-item{padding:34px 26px; border-left:1px solid var(--line);}
+  .amen-item:first-child{border-left:none;}
+  .amen-item .num{font-family:var(--display); font-style:italic; color:var(--gold); font-size:15px;}
+  .amen-item h4{font-family:var(--serif); font-size:18px; margin:12px 0 10px; color:var(--ink);}
+  .amen-item p{font-size:13.5px; color:var(--muted); margin:0;}
+
+  /* ---------- LOCATION ---------- */
+  .location-wrap{display:grid; grid-template-columns:0.95fr 1.05fr; gap:0; align-items:stretch;}
+  .loc-copy{padding:90px 70px; display:flex; flex-direction:column; justify-content:center;}
+  .loc-copy p{color:var(--muted); margin-top:18px; font-size:16px;}
+  .loc-list{display:grid; grid-template-columns:1fr 1fr; gap:26px; margin-top:38px;}
+  .loc-stat b{font-family:var(--serif); font-size:28px; display:block; color:var(--gold-bright);}
+  .loc-stat span{font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted-soft);}
+  .loc-photo{position:relative; min-height:460px;}
+  .loc-photo img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0;}
+  .loc-photo a.pin{
+    position:absolute; z-index:2; bottom:30px; left:30px;
+    padding:13px 26px; background:var(--gold); color:#171310; text-decoration:none;
+    font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; font-weight:600;
+  }
+
+  /* ---------- RESERVE ---------- */
+  .reserve{background:var(--bg-panel);}
+  .reserve-wrap{display:grid; grid-template-columns:0.8fr 1.2fr; gap:80px;}
+  .reserve-info h2{font-size:clamp(28px,3.6vw,44px); margin-bottom:20px;}
+  .reserve-info p{color:var(--muted); margin-bottom:30px; font-size:16px;}
+  .reserve-phone{font-family:var(--display); font-size:26px; color:var(--gold-bright); text-decoration:none;}
+  .reserve-note{font-size:13px; color:var(--muted-soft); margin-top:8px;}
+
+  form.book{display:grid; grid-template-columns:1fr 1fr; gap:20px 24px;}
+  form.book .full{grid-column:1/-1;}
+  form.book label{display:flex; flex-direction:column; gap:9px; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--gold);}
+  form.book input, form.book select, form.book textarea{
+    background:transparent; border:none; border-bottom:1px solid var(--line);
+    color:var(--ink); font-family:var(--sans); font-size:15px; padding:8px 2px;
+    outline:none; font-weight:300; transition:border-color .25s;
+  }
+  form.book input:focus, form.book select:focus, form.book textarea:focus{border-color:var(--gold);}
+  form.book select option{background:var(--bg-panel);}
+  form.book textarea{resize:vertical; min-height:70px;}
+  form.book .meta{font-size:13px; color:var(--muted-soft); align-self:end; padding-bottom:8px;}
+  form.book button{
+    grid-column:1/-1; border:1px solid var(--gold); background:var(--gold); color:#171310;
+    padding:17px; font-size:12px; text-transform:uppercase; letter-spacing:0.2em;
+    font-weight:600; cursor:pointer; transition:background .25s; margin-top:12px;
+    animation:goldGlow 3.4s ease-in-out infinite;
+  }
+  form.book button:hover{background:var(--gold-bright); border-color:var(--gold-bright);}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:70px 0 40px; border-top:1px solid var(--line);}
+  .foot-grid{display:flex; justify-content:space-between; flex-wrap:wrap; gap:34px;}
+  footer .brand{margin-bottom:12px;}
+  footer p{font-size:13.5px; color:var(--muted); margin:5px 0;}
+  footer a:hover{color:var(--gold-bright);}
+  .foot-note{margin-top:50px; text-align:center; font-size:11.5px; color:var(--muted-soft); letter-spacing:0.08em;}
+
+  @media (max-width: 980px){
+    .nav-links{display:none;}
+    .nav-right{gap:12px;}
+    .lang-btn{padding:6px 5px; font-size:10px;}
+    .house, .location-wrap{grid-template-columns:1fr;}
+    .house-img, .loc-photo{min-height:340px;}
+    .house-copy, .loc-copy{padding:56px 28px;}
+    .rooms-feature, .rooms-secondary{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr); grid-auto-rows:180px;}
+    .g1,.g2,.g3,.g4,.g5{grid-column:span 1; grid-row:span 1;}
+    .amen-row{grid-template-columns:1fr 1fr;}
+    .amen-item:nth-child(odd){border-left:none;}
+    form.book{grid-template-columns:1fr;}
+    .reserve-wrap{grid-template-columns:1fr; gap:40px;}
+    .container{padding:0 22px;}
+    section{padding:90px 0;}
+    .stack-card{height:70vh; min-height:420px;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand">Hôtel Mozart</div>
+  <ul class="nav-links">
+    <li><a href="#rooms" data-i18n="nav_rooms">Rooms</a></li>
+    <li><a href="#house" data-i18n="nav_house">The House</a></li>
+    <li><a href="#location" data-i18n="nav_location">Location</a></li>
+    <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="fr">FR</button>
+      <button type="button" class="lang-btn" data-lang="nl">NL</button>
+    </div>
+    <a class="nav-cta" href="#reserve" data-i18n="nav_reserve">Reserve</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="container hero-inner">
+    <div class="hero-tag" data-i18n="hero_tag">Brussels · Grand Place · Since 1673</div>
+    <h1 data-i18n="hero_h1">Seventeen rooms. Not one of them ordinary.</h1>
+    <p class="lede" data-i18n="hero_lede">A 17th-century house, one street behind the Grand Place, decorated by hand and completely unafraid of colour — hand-tiled courtyard, gilded salons, and a fountain that actually runs.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-solid" href="#reserve" data-i18n="hero_cta_reserve">Reserve Your Stay</a>
+      <a class="btn btn-ghost" href="#rooms" data-i18n="hero_cta_rooms">View Rooms</a>
+    </div>
+  </div>
+  <div class="scroll-cue"></div>
+</header>
+
+<section class="ambiance panel">
+  <div class="ambiance-wrap" id="ambiance-wrap">
+    <img src="images/courtyard-night.jpg" alt="Aerial view of the tiled courtyard fountain at Hôtel Mozart, lit at night" />
+    <div class="ambiance-copy">
+      <div class="eyebrow" data-i18n="ambiance_eyebrow">Ambiance</div>
+      <h2 data-i18n="ambiance_h2">An evening by the fountain.</h2>
+      <p data-i18n="ambiance_p">Gilded light on old water, candle-warm and quiet.</p>
+    </div>
+  </div>
+</section>
+
+<section id="house">
+  <div class="house">
+    <div class="house-img reveal">
+      <img src="images/courtyard.jpg" alt="Moorish-tiled courtyard with fountain at Hôtel Mozart" />
+    </div>
+    <div class="house-copy reveal">
+      <div class="eyebrow" data-i18n="house_eyebrow">The House</div>
+      <h2 data-i18n="house_h2">Old Brussels, decorated by hand.</h2>
+      <p data-i18n="house_p1">Hôtel Mozart occupies a merchant's residence from the 17th century on Rue du Marché aux Fromages — one street back from the Grand Place, close enough to hear the carillon, far enough to sleep through it.</p>
+      <p data-i18n="house_p2">Every room was decorated by hand, one at a time, over years — antique mirrors, hand-painted ceilings, a Moroccan-tiled courtyard built around a fountain that still runs. It's more curiosity cabinet than showroom, and that's rather the point.</p>
+      <div class="house-facts">
+        <div><b class="count" data-target="17" data-suffix="">0</b><span data-i18n="fact_rooms">Rooms, no two alike</span></div>
+        <div><b class="count" data-target="50" data-suffix="m">0</b><span data-i18n="fact_grandplace">To the Grand Place</span></div>
+        <div><b class="count" data-target="352" data-suffix="">0</b><span data-i18n="fact_years">Years of history</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rooms" class="panel">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="rooms_eyebrow">Seventeen · No two alike</div>
+      <h2 data-i18n="rooms_h2">Rooms</h2>
+    </div>
+
+    <div class="rooms-feature reveal stagger">
+      <article class="room-tile" data-room="mirror" onclick="reserveRoom('mirror')">
+        <img src="images/extra1.jpg" alt="Mirror Hall attic room with exposed beams and colourful furnishings" />
+        <div class="room-info">
+          <div class="room-no">Nº 03 — Mirror Hall</div>
+          <h3 data-i18n="room_mirror_h3">Facing the Grand Place</h3>
+          <div class="room-price"><span data-i18n="price_from">from</span> <b>€95</b> <span data-i18n="price_night">/ night</span></div>
+          <div class="room-desc" data-i18n="room_mirror_desc">Arched window facing the Grand Place, antique mirrorwork, hand-laid zellige tile.</div>
+        </div>
+      </article>
+      <article class="room-tile" data-room="gilded" onclick="reserveRoom('gilded')">
+        <img src="images/gilded-salon.jpg" alt="Gilded Chamber salon with antique gilt furniture" />
+        <div class="room-info">
+          <div class="room-no">Nº 01 — Gilded Chamber</div>
+          <h3 data-i18n="room_gilded_h3">Fresco &amp; four-poster</h3>
+          <div class="room-price"><span data-i18n="price_from">from</span> <b>€79</b> <span data-i18n="price_night">/ night</span></div>
+          <div class="room-desc" data-i18n="room_gilded_desc">Painted ceiling, courtyard side.</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="rooms-secondary reveal stagger">
+      <article class="room-tile" data-room="composer" onclick="reserveRoom('composer')">
+        <img src="images/room-red.jpg" alt="Composer's Study with writing desk and red velvet" />
+        <div class="room-info">
+          <div class="room-no">Nº 02 — Composer's Study</div>
+          <h3>Composer's Study</h3>
+          <div class="room-price"><span data-i18n="price_from">from</span> <b>€65</b> <span data-i18n="price_night">/ night</span></div>
+          <div class="room-desc" data-i18n="room_composer_desc">Moroccan brasswork, writing desk, quiet wing.</div>
+        </div>
+      </article>
+      <article class="room-tile" data-room="any" onclick="reserveRoom('any')">
+        <img src="images/lobby.jpg" alt="Entrance hall at Hôtel Mozart" />
+        <div class="room-info">
+          <div class="room-no" data-i18n="room_any_no">All Rooms</div>
+          <h3 data-i18n="room_any_h3">See the full house</h3>
+          <div class="room-price" data-i18n="room_any_price">Fourteen more, each different</div>
+          <div class="room-desc" data-i18n="room_any_desc">Speak with reception for the room that suits you best.</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="container">
+    <div class="section-head center reveal" style="margin-left:auto; margin-right:auto;">
+      <div class="eyebrow" data-i18n="gallery_eyebrow">Gallery</div>
+      <h2 data-i18n="gallery_h2">A house built for looking twice.</h2>
+    </div>
+    <div class="gallery-grid reveal stagger">
+      <a class="g1" href="images/hero-facade.jpg" target="_blank"><img src="images/hero-facade.jpg" alt="Hôtel Mozart facade, Rue du Marché aux Fromages" /></a>
+      <a class="g2" href="images/staircase-gold.jpg" target="_blank"><img src="images/staircase-gold.jpg" alt="Gilded tiled staircase" /></a>
+      <a class="g3" href="images/staircase-tiles.jpg" target="_blank"><img src="images/staircase-tiles.jpg" alt="Tiled stairwell detail" /></a>
+      <a class="g4" href="images/curtained-staircase.jpg" target="_blank"><img src="images/curtained-staircase.jpg" alt="Staircase framed by gold and red curtains" /></a>
+      <a class="g5" href="images/breakfast-room.jpg" target="_blank"><img src="images/breakfast-room.jpg" alt="Moroccan-style breakfast room with vaulted ceiling" /></a>
+    </div>
+  </div>
+</section>
+
+<section class="moments">
+  <div class="container section-head reveal" style="margin-bottom:0;">
+    <div class="eyebrow" data-i18n="moments_eyebrow">A Closer Look</div>
+    <h2 data-i18n="moments_h2">Details worth noticing.</h2>
+  </div>
+  <div class="stack-card">
+    <img src="images/alcove.jpg" alt="Tiled arched alcove" />
+    <div class="stack-copy">
+      <div class="stack-no">Nº 01</div>
+      <p data-i18n="moment1">Tile, laid by hand, one piece at a time.</p>
+    </div>
+  </div>
+  <div class="stack-card">
+    <img src="images/room-red.jpg" alt="Red velvet room with brass lamps" />
+    <div class="stack-copy">
+      <div class="stack-no">Nº 02</div>
+      <p data-i18n="moment2">Red velvet, brass lamps, a door that locks.</p>
+    </div>
+  </div>
+  <div class="stack-card">
+    <img src="images/staircase-tiles.jpg" alt="Tiled stairwell" />
+    <div class="stack-copy">
+      <div class="stack-no">Nº 03</div>
+      <p data-i18n="moment3">Every landing tells a different story.</p>
+    </div>
+  </div>
+  <div class="stack-card">
+    <img src="images/tiled-detail.jpg" alt="Blue archway dining nook with hand-painted walls" />
+    <div class="stack-copy">
+      <div class="stack-no">Nº 04</div>
+      <p data-i18n="moment4">No two walls share the same pattern.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="container">
+    <div class="amen-row reveal stagger">
+      <div class="amen-item">
+        <div class="num">01</div>
+        <h4 data-i18n="amen1_h4">Breakfast</h4>
+        <p data-i18n="amen1_p">Traditional Belgian, served daily until 10:30.</p>
+      </div>
+      <div class="amen-item">
+        <div class="num">02</div>
+        <h4 data-i18n="amen2_h4">Location</h4>
+        <p data-i18n="amen2_p">50 metres from the Grand Place, on a pedestrian lane.</p>
+      </div>
+      <div class="amen-item">
+        <div class="num">03</div>
+        <h4 data-i18n="amen3_h4">Quiet stays</h4>
+        <p data-i18n="amen3_p">Courtyard-side rooms and earplugs on request.</p>
+      </div>
+      <div class="amen-item">
+        <div class="num">04</div>
+        <h4 data-i18n="amen4_h4">Summer comfort</h4>
+        <p data-i18n="amen4_p">Portable fans provided in every room.</p>
+      </div>
+      <div class="amen-item">
+        <div class="num">05</div>
+        <h4 data-i18n="amen5_h4">Concierge</h4>
+        <p data-i18n="amen5_p">Walking maps, restaurant reservations, museum tickets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="location">
+  <div class="location-wrap">
+    <div class="loc-copy reveal">
+      <div class="eyebrow" data-i18n="location_eyebrow">Location</div>
+      <h2 data-i18n="location_h2">Fifty paces from the Grand Place.</h2>
+      <p data-i18n="location_p">Central Station is a seven-minute walk. Manneken Pis, the Royal Galleries, and the Musical Instrument Museum are all closer than that.</p>
+      <div class="loc-list">
+        <div class="loc-stat"><b class="count" data-target="50" data-suffix=" m">0</b><span data-i18n="loc_grandplace">Grand Place</span></div>
+        <div class="loc-stat"><b class="count" data-target="7" data-suffix=" min">0</b><span data-i18n="loc_station">Central Station</span></div>
+        <div class="loc-stat"><b class="count" data-target="4" data-suffix=" min">0</b><span>Manneken Pis</span></div>
+        <div class="loc-stat"><b class="count" data-target="12" data-suffix=" min">0</b><span data-i18n="loc_sablon">Sablon</span></div>
+      </div>
+    </div>
+    <div class="loc-photo reveal">
+      <img src="images/storefront.jpg" alt="Hôtel Mozart storefront, Rue du Marché aux Fromages 23, Brussels" />
+      <a class="pin" href="https://www.google.com/maps/search/?api=1&query=H%C3%B4tel+Mozart+Rue+du+March%C3%A9+aux+Fromages+23+Bruxelles" target="_blank" rel="noopener" data-i18n="loc_maps_link">Open in Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<section id="reserve" class="reserve">
+  <div class="container reserve-wrap">
+    <div class="reserve-info reveal">
+      <div class="eyebrow" data-i18n="reserve_eyebrow">Reserve</div>
+      <h2 data-i18n="reserve_h2">Check availability.</h2>
+      <p data-i18n="reserve_p">Pick your dates below — it opens our secure booking engine with real-time rates and availability, ready to complete.</p>
+      <div>
+        <div style="font-size:12px; color:var(--muted-soft); text-transform:uppercase; letter-spacing:0.14em; margin-bottom:8px;" data-i18n="reserve_call_label">Prefer to speak with us?</div>
+        <a class="reserve-phone" href="tel:+3225026661">+32 2 502 66 61</a>
+        <div class="reserve-note" data-i18n="reserve_hours">Reception is open 24 hours, seven days a week.</div>
+      </div>
+    </div>
+
+    <form class="book reveal" id="reserve-form" action="https://direct-book.com/properties/hotelmozart2" method="get" target="_blank">
+      <input type="hidden" name="locale" id="locale-field" value="en" />
+      <input type="hidden" name="country" value="BE" />
+      <input type="hidden" name="currency" value="EUR" />
+      <input type="hidden" name="items[0][children]" value="0" />
+      <input type="hidden" name="items[0][infants]" value="0" />
+      <label><span data-i18n="form_checkin">Check-in</span>
+        <input type="date" id="checkin" name="checkInDate" required />
+      </label>
+      <label><span data-i18n="form_checkout">Check-out</span>
+        <input type="date" id="checkout" name="checkOutDate" required />
+      </label>
+      <label class="full"><span data-i18n="form_guests">Guests</span>
+        <select id="guests" name="items[0][adults]">
+          <option value="1" data-i18n="guests_1">1 guest</option>
+          <option value="2" selected data-i18n="guests_2">2 guests</option>
+          <option value="3" data-i18n="guests_3">3 guests</option>
+          <option value="4" data-i18n="guests_4">4 guests</option>
+        </select>
+      </label>
+      <div class="meta" id="stay-meta">1 night · 2 guests</div>
+      <button type="submit" data-i18n="form_submit">Check Availability &amp; Book</button>
+      <div class="reserve-note" style="grid-column:1/-1; text-align:center;" data-i18n="form_note">Opens our booking partner, direct-book.com, in a new tab.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="brand">Hôtel Mozart</div>
+        <p data-i18n="footer_tagline">A 17th-century house, decorated by hand, behind the Grand Place.</p>
+        <p>Rue du Marché aux Fromages 23<br>1000 Bruxelles, Belgium</p>
+      </div>
+      <div>
+        <p><a href="tel:+3225026661">+32 2 502 66 61</a></p>
+        <p><a href="mailto:reception@hotel-mozart.be">reception@hotel-mozart.be</a></p>
+      </div>
+      <div>
+        <p>© 2026 Hôtel Mozart Bruxelles</p>
+        <p style="font-style:italic; font-family:var(--display); color:var(--gold-bright);" data-i18n="footer_since">Since the 17th century</p>
+      </div>
+    </div>
+    <div class="foot-note" data-i18n="footer_note">Rooms & Suites · The House · Location · Reserve</div>
+  </div>
+</footer>
+
+<script>
+  // ---------- i18n: English / French / Dutch ----------
+  const translations = {
+    en: {
+      nav_rooms: "Rooms", nav_house: "The House", nav_location: "Location", nav_gallery: "Gallery", nav_reserve: "Reserve",
+      hero_tag: "Brussels · Grand Place · Since 1673",
+      hero_h1: "Seventeen rooms. Not one of them ordinary.",
+      hero_lede: "A 17th-century house, one street behind the Grand Place, decorated by hand and completely unafraid of colour — hand-tiled courtyard, gilded salons, and a fountain that actually runs.",
+      hero_cta_reserve: "Reserve Your Stay", hero_cta_rooms: "View Rooms",
+      ambiance_eyebrow: "Ambiance", ambiance_h2: "An evening by the fountain.", ambiance_p: "Gilded light on old water, candle-warm and quiet.",
+      house_eyebrow: "The House", house_h2: "Old Brussels, decorated by hand.",
+      house_p1: "Hôtel Mozart occupies a merchant's residence from the 17th century on Rue du Marché aux Fromages — one street back from the Grand Place, close enough to hear the carillon, far enough to sleep through it.",
+      house_p2: "Every room was decorated by hand, one at a time, over years — antique mirrors, hand-painted ceilings, a Moroccan-tiled courtyard built around a fountain that still runs. It's more curiosity cabinet than showroom, and that's rather the point.",
+      fact_rooms: "Rooms, no two alike", fact_grandplace: "To the Grand Place", fact_years: "Years of history",
+      rooms_eyebrow: "Seventeen · No two alike", rooms_h2: "Rooms",
+      room_mirror_h3: "Facing the Grand Place",
+      room_mirror_desc: "Arched window facing the Grand Place, antique mirrorwork, hand-laid zellige tile.",
+      room_gilded_h3: "Fresco & four-poster",
+      room_gilded_desc: "Painted ceiling, courtyard side.",
+      room_composer_desc: "Moroccan brasswork, writing desk, quiet wing.",
+      room_any_no: "All Rooms", room_any_h3: "See the full house",
+      room_any_price: "Fourteen more, each different",
+      room_any_desc: "Speak with reception for the room that suits you best.",
+      price_from: "from", price_night: "/ night",
+      gallery_eyebrow: "Gallery", gallery_h2: "A house built for looking twice.",
+      moments_eyebrow: "A Closer Look", moments_h2: "Details worth noticing.",
+      moment1: "Tile, laid by hand, one piece at a time.",
+      moment2: "Red velvet, brass lamps, a door that locks.",
+      moment3: "Every landing tells a different story.",
+      moment4: "No two walls share the same pattern.",
+      amen1_h4: "Breakfast", amen1_p: "Traditional Belgian, served daily until 10:30.",
+      amen2_h4: "Location", amen2_p: "50 metres from the Grand Place, on a pedestrian lane.",
+      amen3_h4: "Quiet stays", amen3_p: "Courtyard-side rooms and earplugs on request.",
+      amen4_h4: "Summer comfort", amen4_p: "Portable fans provided in every room.",
+      amen5_h4: "Concierge", amen5_p: "Walking maps, restaurant reservations, museum tickets.",
+      location_eyebrow: "Location", location_h2: "Fifty paces from the Grand Place.",
+      location_p: "Central Station is a seven-minute walk. Manneken Pis, the Royal Galleries, and the Musical Instrument Museum are all closer than that.",
+      loc_grandplace: "Grand Place", loc_station: "Central Station", loc_sablon: "Sablon",
+      loc_maps_link: "Open in Google Maps",
+      reserve_eyebrow: "Reserve", reserve_h2: "Check availability.",
+      reserve_p: "Pick your dates below — it opens our secure booking engine with real-time rates and availability, ready to complete.",
+      reserve_call_label: "Prefer to speak with us?",
+      reserve_hours: "Reception is open 24 hours, seven days a week.",
+      form_checkin: "Check-in", form_checkout: "Check-out", form_guests: "Guests",
+      guests_1: "1 guest", guests_2: "2 guests", guests_3: "3 guests", guests_4: "4 guests",
+      form_submit: "Check Availability & Book",
+      form_note: "Opens our booking partner, direct-book.com, in a new tab.",
+      footer_tagline: "A 17th-century house, decorated by hand, behind the Grand Place.",
+      footer_since: "Since the 17th century",
+      footer_note: "Rooms & Suites · The House · Location · Reserve",
+      unit_night: "night", unit_nights: "nights", unit_guest: "guest", unit_guests: "guests",
+      page_title: "Hôtel Mozart Bruxelles — Brussels' Most Eccentric Address, Steps from the Grand Place",
+      page_desc: "Hôtel Mozart: a 17th-century house turned into seventeen wildly individual rooms, fifty metres from the Grand Place, Brussels. Handmade, a little mad, and unlike anywhere else in the city."
+    },
+    fr: {
+      nav_rooms: "Chambres", nav_house: "La Maison", nav_location: "Emplacement", nav_gallery: "Galerie", nav_reserve: "Réserver",
+      hero_tag: "Bruxelles · Grand-Place · Depuis 1673",
+      hero_h1: "Dix-sept chambres. Aucune n'est ordinaire.",
+      hero_lede: "Une maison du XVIIe siècle, à une rue de la Grand-Place, décorée à la main et sans aucune peur de la couleur — cour aux carreaux faits main, salons dorés, et une fontaine qui coule vraiment.",
+      hero_cta_reserve: "Réservez votre séjour", hero_cta_rooms: "Voir les chambres",
+      ambiance_eyebrow: "Ambiance", ambiance_h2: "Un soir près de la fontaine.", ambiance_p: "Une lumière dorée sur une eau ancienne, chaude comme une bougie, et silencieuse.",
+      house_eyebrow: "La Maison", house_h2: "Le vieux Bruxelles, décoré à la main.",
+      house_p1: "L'Hôtel Mozart occupe une demeure de marchand du XVIIe siècle, rue du Marché aux Fromages — à une rue de la Grand-Place, assez proche pour entendre le carillon, assez loin pour dormir malgré lui.",
+      house_p2: "Chaque chambre a été décorée à la main, une par une, au fil des années — miroirs anciens, plafonds peints à la main, une cour aux mosaïques marocaines construite autour d'une fontaine toujours en eau. C'est plus un cabinet de curiosités qu'une vitrine, et c'est bien là l'idée.",
+      fact_rooms: "Chambres, aucune identique", fact_grandplace: "Jusqu'à la Grand-Place", fact_years: "Ans d'histoire",
+      rooms_eyebrow: "Dix-sept · Aucune identique", rooms_h2: "Chambres",
+      room_mirror_h3: "Face à la Grand-Place",
+      room_mirror_desc: "Fenêtre en arc face à la Grand-Place, miroiterie ancienne, zellige posé à la main.",
+      room_gilded_h3: "Fresque & lit à baldaquin",
+      room_gilded_desc: "Plafond peint, côté cour.",
+      room_composer_desc: "Laiton marocain, bureau, aile tranquille.",
+      room_any_no: "Toutes les chambres", room_any_h3: "Découvrez toute la maison",
+      room_any_price: "Quatorze autres, toutes différentes",
+      room_any_desc: "Parlez-en à la réception pour trouver la chambre qui vous convient.",
+      price_from: "à partir de", price_night: "/ nuit",
+      gallery_eyebrow: "Galerie", gallery_h2: "Une maison qui mérite un second regard.",
+      moments_eyebrow: "Un regard de plus près", moments_h2: "Des détails qui valent le coup d'œil.",
+      moment1: "Des carreaux, posés à la main, un par un.",
+      moment2: "Velours rouge, lampes en laiton, une porte qui ferme à clé.",
+      moment3: "Chaque palier raconte une histoire différente.",
+      moment4: "Aucun mur ne partage le même motif.",
+      amen1_h4: "Petit-déjeuner", amen1_p: "Petit-déjeuner belge traditionnel, servi tous les jours jusqu'à 10h30.",
+      amen2_h4: "Emplacement", amen2_p: "À 50 mètres de la Grand-Place, dans une rue piétonne.",
+      amen3_h4: "Séjours au calme", amen3_p: "Chambres côté cour et bouchons d'oreilles sur demande.",
+      amen4_h4: "Confort d'été", amen4_p: "Ventilateurs portables fournis dans chaque chambre.",
+      amen5_h4: "Conciergerie", amen5_p: "Plans de balade, réservations de restaurant, billets de musée.",
+      location_eyebrow: "Emplacement", location_h2: "À cinquante pas de la Grand-Place.",
+      location_p: "La Gare Centrale est à sept minutes à pied. Le Manneken Pis, les Galeries Royales et le Musée des Instruments de Musique sont tous encore plus proches.",
+      loc_grandplace: "Grand-Place", loc_station: "Gare Centrale", loc_sablon: "Sablon",
+      loc_maps_link: "Ouvrir dans Google Maps",
+      reserve_eyebrow: "Réserver", reserve_h2: "Vérifier les disponibilités.",
+      reserve_p: "Choisissez vos dates ci-dessous — cela ouvre notre moteur de réservation sécurisé, avec tarifs et disponibilités en temps réel, prêt à finaliser.",
+      reserve_call_label: "Vous préférez nous parler ?",
+      reserve_hours: "La réception est ouverte 24h/24, 7j/7.",
+      form_checkin: "Arrivée", form_checkout: "Départ", form_guests: "Voyageurs",
+      guests_1: "1 voyageur", guests_2: "2 voyageurs", guests_3: "3 voyageurs", guests_4: "4 voyageurs",
+      form_submit: "Vérifier & réserver",
+      form_note: "Ouvre notre partenaire de réservation, direct-book.com, dans un nouvel onglet.",
+      footer_tagline: "Une maison du XVIIe siècle, décorée à la main, derrière la Grand-Place.",
+      footer_since: "Depuis le XVIIe siècle",
+      footer_note: "Chambres & Suites · La Maison · Emplacement · Réserver",
+      unit_night: "nuit", unit_nights: "nuits", unit_guest: "voyageur", unit_guests: "voyageurs",
+      page_title: "Hôtel Mozart Bruxelles — L'adresse la plus excentrique de Bruxelles, à deux pas de la Grand-Place",
+      page_desc: "Hôtel Mozart : une maison du XVIIe siècle transformée en dix-sept chambres toutes différentes, à cinquante mètres de la Grand-Place, Bruxelles. Fait main, un peu fou, et unique en son genre."
+    },
+    nl: {
+      nav_rooms: "Kamers", nav_house: "Het Huis", nav_location: "Locatie", nav_gallery: "Galerij", nav_reserve: "Reserveren",
+      hero_tag: "Brussel · Grote Markt · Sinds 1673",
+      hero_h1: "Zeventien kamers. Geen enkele gewoon.",
+      hero_lede: "Een 17e-eeuws huis, één straat achter de Grote Markt, met de hand ingericht en absoluut niet bang van kleur — een binnenplaats met handgelegde tegels, vergulde salons, en een fontein die echt werkt.",
+      hero_cta_reserve: "Reserveer uw verblijf", hero_cta_rooms: "Bekijk kamers",
+      ambiance_eyebrow: "Sfeer", ambiance_h2: "Een avond bij de fontein.", ambiance_p: "Verguld licht op oud water, kaarslicht-warm en stil.",
+      house_eyebrow: "Het Huis", house_h2: "Oud Brussel, met de hand versierd.",
+      house_p1: "Hôtel Mozart is gevestigd in een 17e-eeuws koopmanshuis aan de Kaasmarkt — één straat van de Grote Markt, dicht genoeg om het carillon te horen, ver genoeg om er toch doorheen te slapen.",
+      house_p2: "Elke kamer werd met de hand ingericht, één voor één, over de jaren heen — antieke spiegels, handbeschilderde plafonds, een Marokkaans betegelde binnenplaats rond een fontein die nog steeds werkt. Het is meer een rariteitenkabinet dan een showroom, en dat is precies de bedoeling.",
+      fact_rooms: "Kamers, geen twee gelijk", fact_grandplace: "Tot de Grote Markt", fact_years: "Jaar geschiedenis",
+      rooms_eyebrow: "Zeventien · Geen twee gelijk", rooms_h2: "Kamers",
+      room_mirror_h3: "Met zicht op de Grote Markt",
+      room_mirror_desc: "Boograam met zicht op de Grote Markt, antiek spiegelwerk, met de hand gelegde zellige-tegels.",
+      room_gilded_h3: "Fresco & hemelbed",
+      room_gilded_desc: "Beschilderd plafond, aan de kant van de binnenplaats.",
+      room_composer_desc: "Marokkaans koperwerk, schrijftafel, rustige vleugel.",
+      room_any_no: "Alle kamers", room_any_h3: "Bekijk het hele huis",
+      room_any_price: "Nog veertien, allemaal anders",
+      room_any_desc: "Vraag de receptie naar de kamer die het beste bij u past.",
+      price_from: "vanaf", price_night: "/ nacht",
+      gallery_eyebrow: "Galerij", gallery_h2: "Een huis dat een tweede blik verdient.",
+      moments_eyebrow: "Een nadere blik", moments_h2: "Details die de moeite waard zijn.",
+      moment1: "Tegels, met de hand gelegd, één voor één.",
+      moment2: "Rood fluweel, koperen lampen, een deur die op slot kan.",
+      moment3: "Elke overloop vertelt een ander verhaal.",
+      moment4: "Geen twee muren delen hetzelfde patroon.",
+      amen1_h4: "Ontbijt", amen1_p: "Traditioneel Belgisch ontbijt, dagelijks geserveerd tot 10.30 uur.",
+      amen2_h4: "Locatie", amen2_p: "Op 50 meter van de Grote Markt, in een voetgangersstraat.",
+      amen3_h4: "Rustig verblijf", amen3_p: "Kamers aan de binnenplaats en oordopjes op aanvraag.",
+      amen4_h4: "Zomercomfort", amen4_p: "Draagbare ventilatoren aanwezig in elke kamer.",
+      amen5_h4: "Conciërge", amen5_p: "Wandelkaarten, restaurantreserveringen, museumtickets.",
+      location_eyebrow: "Locatie", location_h2: "Vijftig passen van de Grote Markt.",
+      location_p: "Centraal Station is zeven minuten lopen. Manneken Pis, de Koninklijke Galerijen en het Muziekinstrumentenmuseum liggen allemaal nog dichterbij.",
+      loc_grandplace: "Grote Markt", loc_station: "Centraal Station", loc_sablon: "Zavel",
+      loc_maps_link: "Openen in Google Maps",
+      reserve_eyebrow: "Reserveren", reserve_h2: "Beschikbaarheid controleren.",
+      reserve_p: "Kies hieronder uw data — dit opent ons beveiligde boekingssysteem met actuele tarieven en beschikbaarheid, klaar om af te ronden.",
+      reserve_call_label: "Liever met ons spreken?",
+      reserve_hours: "De receptie is 24 uur per dag, 7 dagen per week open.",
+      form_checkin: "Check-in", form_checkout: "Check-out", form_guests: "Gasten",
+      guests_1: "1 gast", guests_2: "2 gasten", guests_3: "3 gasten", guests_4: "4 gasten",
+      form_submit: "Controleren & boeken",
+      form_note: "Opent onze boekingspartner, direct-book.com, in een nieuw tabblad.",
+      footer_tagline: "Een 17e-eeuws huis, met de hand versierd, achter de Grote Markt.",
+      footer_since: "Sinds de 17e eeuw",
+      footer_note: "Kamers & Suites · Het Huis · Locatie · Reserveren",
+      unit_night: "nacht", unit_nights: "nachten", unit_guest: "gast", unit_guests: "gasten",
+      page_title: "Hôtel Mozart Brussel — Het meest excentrieke adres van Brussel, vlak bij de Grote Markt",
+      page_desc: "Hôtel Mozart: een 17e-eeuws huis omgetoverd tot zeventien totaal verschillende kamers, vijftig meter van de Grote Markt, Brussel. Handgemaakt, een beetje gek, en uniek in de stad."
+    }
+  };
+
+  let currentLang = 'en';
+  function setLanguage(lang){
+    if (!translations[lang]) return;
+    currentLang = lang;
+    const dict = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.documentElement.lang = lang;
+    document.title = dict.page_title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', dict.page_desc);
+    const localeField = document.getElementById('locale-field');
+    if (localeField) localeField.value = lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    try { localStorage.setItem('hotelMozartLang', lang); } catch(e) {}
+    if (typeof updateMeta === 'function') updateMeta();
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+  });
+
+  (function initLanguage(){
+    let initial = 'en';
+    try {
+      const saved = localStorage.getItem('hotelMozartLang');
+      if (saved && translations[saved]) {
+        initial = saved;
+      } else if (navigator.language) {
+        const nl2 = navigator.language.toLowerCase();
+        if (nl2.startsWith('fr')) initial = 'fr';
+        else if (nl2.startsWith('nl')) initial = 'nl';
+      }
+    } catch(e) {}
+    setLanguage(initial);
+  })();
+
+  // subtle parallax on the ambiance photo — the only "motion" effect on the page
+  const ambianceImg = document.querySelector('#ambiance-wrap img');
+  window.addEventListener('scroll', () => {
+    const wrap = document.getElementById('ambiance-wrap');
+    const r = wrap.getBoundingClientRect();
+    if (r.bottom > 0 && r.top < window.innerHeight) {
+      const progress = (window.innerHeight - r.top) / (window.innerHeight + r.height);
+      ambianceImg.style.transform = `scale(1.05) translateY(${(progress - 0.5) * 40}px)`;
+    }
+  }, { passive: true });
+
+  // stacking-card depth effect: as the next card covers one beneath it,
+  // scale it down and dim it slightly so the stack reads as physical depth.
+  const stackCards = [...document.querySelectorAll('.stack-card')];
+  function updateStack() {
+    stackCards.forEach((card, i) => {
+      const next = stackCards[i + 1];
+      if (!next) { card.style.transform = ''; card.style.filter = ''; return; }
+      const nextTop = next.getBoundingClientRect().top;
+      const vh = window.innerHeight;
+      // covered goes 0 -> 1 as the next card's top travels from vh (just entering) to 0 (fully pinned over this one)
+      const covered = Math.min(1, Math.max(0, (vh - nextTop) / vh));
+      const scale = 1 - covered * 0.06;
+      const dim = 1 - covered * 0.35;
+      card.style.transform = `scale(${scale})`;
+      card.style.filter = `brightness(${dim})`;
+    });
+  }
+  if (stackCards.length) {
+    window.addEventListener('scroll', updateStack, { passive: true });
+    window.addEventListener('resize', updateStack);
+    updateStack();
+  }
+
+  // nav scroll state
+  const navEl = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    navEl.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // subtle hero parallax
+  const heroBg = document.getElementById('hero-bg');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    heroBg.style.transform = `scale(1.08) translateY(${y * 0.15}px)`;
+  });
+
+  // scroll reveal — plain scroll-position polling (not IntersectionObserver:
+  // verified unreliable in some environments even for elements plainly in view).
+  const revealEls = [...document.querySelectorAll('.reveal')];
+  const countEls = [...document.querySelectorAll('.count')];
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animateCount(el) {
+    if (el.dataset.done) return;
+    el.dataset.done = '1';
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    if (reduceMotion) { el.textContent = target + suffix; return; }
+    const start = performance.now();
+    const dur = 1100;
+    function tick(now) {
+      const p = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function checkReveal(){
+    let remaining = false;
+    revealEls.forEach(el => {
+      if (el.classList.contains('in')) return;
+      const r = el.getBoundingClientRect();
+      if (reduceMotion || (r.top < window.innerHeight * 0.94 && r.bottom > 0)) {
+        el.classList.add('in');
+      } else {
+        remaining = true;
+      }
+    });
+    countEls.forEach(el => {
+      if (el.dataset.done) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.94 && r.bottom > 0) {
+        animateCount(el);
+      } else {
+        remaining = true;
+      }
+    });
+    if (!remaining) {
+      window.removeEventListener('scroll', checkReveal);
+      window.removeEventListener('resize', checkReveal);
+      clearInterval(revealTimer);
+    }
+  }
+  window.addEventListener('scroll', checkReveal, { passive: true });
+  window.addEventListener('resize', checkReveal);
+  window.addEventListener('load', checkReveal);
+  const revealTimer = setInterval(checkReveal, 800);
+  checkReveal();
+
+  // default dates: today / tomorrow
+  const todayStr = new Date().toISOString().slice(0,10);
+  const tomorrow = new Date(Date.now() + 86400000).toISOString().slice(0,10);
+  document.getElementById('checkin').value = todayStr;
+  document.getElementById('checkout').value = tomorrow;
+
+  function reserveRoom(room){
+    document.getElementById('reserve').scrollIntoView({behavior:'smooth'});
+  }
+  window.reserveRoom = reserveRoom;
+
+  function updateMeta(){
+    const ci = new Date(document.getElementById('checkin').value);
+    const co = new Date(document.getElementById('checkout').value);
+    let nights = Math.round((co - ci) / 86400000);
+    if (isNaN(nights) || nights < 1) nights = 1;
+    const guests = document.getElementById('guests').value;
+    const dict = translations[currentLang] || translations.en;
+    const nightWord = nights === 1 ? dict.unit_night : dict.unit_nights;
+    const guestWord = guests === '1' ? dict.unit_guest : dict.unit_guests;
+    document.getElementById('stay-meta').textContent =
+      nights + ' ' + nightWord + ' · ' + guests + ' ' + guestWord;
+  }
+  document.getElementById('checkin').addEventListener('change', updateMeta);
+  document.getElementById('checkout').addEventListener('change', updateMeta);
+  document.getElementById('guests').addEventListener('change', updateMeta);
+  updateMeta();
+
+  // reserve-form now submits for real (GET, new tab, to the live booking engine) —
+  // no JS interception needed, the browser handles it natively.
+</script>
+
+</body>
+</html>
