@@ -69,6 +69,28 @@
   .loc-stat, .house-facts div{transition:transform .3s ease;}
   .loc-stat:hover, .house-facts div:hover{transform:translateY(-3px);}
 
+  /* ---------- DEMO WATERMARK ---------- */
+  .demo-badge{
+    position:fixed; z-index:200; bottom:18px; right:18px;
+    display:flex; align-items:center; gap:8px;
+    background:rgba(10,25,23,0.88); backdrop-filter:blur(6px);
+    border:1px solid var(--gold); color:var(--gold-bright);
+    padding:9px 16px; border-radius:999px;
+    font-family:var(--sans); font-size:11px; font-weight:600;
+    letter-spacing:0.14em; text-transform:uppercase;
+    box-shadow:0 8px 24px rgba(0,0,0,0.35);
+    pointer-events:none;
+  }
+  .demo-badge .dot{
+    width:6px; height:6px; border-radius:50%; background:var(--gold-bright);
+    animation:demoPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes demoPulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+  @media (prefers-reduced-motion: reduce){ .demo-badge .dot{animation:none;} }
+  @media (max-width:600px){
+    .demo-badge{bottom:12px; right:12px; padding:7px 13px; font-size:10px;}
+  }
+
   /* ---------- NAV ---------- */
   nav{
     position:fixed; top:0; left:0; right:0; z-index:60;
@@ -334,6 +356,8 @@
 </style>
 </head>
 <body>
+
+<div class="demo-badge"><span class="dot"></span><span data-i18n="demo_badge">Concept Demo — Not an Official Site</span></div>
 
 <nav id="nav">
   <div class="brand">Hôtel Mozart</div>
@@ -664,7 +688,8 @@
       footer_note: "Rooms & Suites · The House · Location · Reserve",
       unit_night: "night", unit_nights: "nights", unit_guest: "guest", unit_guests: "guests",
       page_title: "Hôtel Mozart Bruxelles — Brussels' Most Eccentric Address, Steps from the Grand Place",
-      page_desc: "Hôtel Mozart: a 17th-century house turned into seventeen wildly individual rooms, fifty metres from the Grand Place, Brussels. Handmade, a little mad, and unlike anywhere else in the city."
+      page_desc: "Hôtel Mozart: a 17th-century house turned into seventeen wildly individual rooms, fifty metres from the Grand Place, Brussels. Handmade, a little mad, and unlike anywhere else in the city.",
+      demo_badge: "Concept Demo — Not an Official Site"
     },
     fr: {
       nav_rooms: "Chambres", nav_house: "La Maison", nav_location: "Emplacement", nav_gallery: "Galerie", nav_reserve: "Réserver",
@@ -715,7 +740,8 @@
       footer_note: "Chambres & Suites · La Maison · Emplacement · Réserver",
       unit_night: "nuit", unit_nights: "nuits", unit_guest: "voyageur", unit_guests: "voyageurs",
       page_title: "Hôtel Mozart Bruxelles — L'adresse la plus excentrique de Bruxelles, à deux pas de la Grand-Place",
-      page_desc: "Hôtel Mozart : une maison du XVIIe siècle transformée en dix-sept chambres toutes différentes, à cinquante mètres de la Grand-Place, Bruxelles. Fait main, un peu fou, et unique en son genre."
+      page_desc: "Hôtel Mozart : une maison du XVIIe siècle transformée en dix-sept chambres toutes différentes, à cinquante mètres de la Grand-Place, Bruxelles. Fait main, un peu fou, et unique en son genre.",
+      demo_badge: "Démo conceptuelle — pas un site officiel"
     },
     nl: {
       nav_rooms: "Kamers", nav_house: "Het Huis", nav_location: "Locatie", nav_gallery: "Galerij", nav_reserve: "Reserveren",
@@ -766,7 +792,8 @@
       footer_note: "Kamers & Suites · Het Huis · Locatie · Reserveren",
       unit_night: "nacht", unit_nights: "nachten", unit_guest: "gast", unit_guests: "gasten",
       page_title: "Hôtel Mozart Brussel — Het meest excentrieke adres van Brussel, vlak bij de Grote Markt",
-      page_desc: "Hôtel Mozart: een 17e-eeuws huis omgetoverd tot zeventien totaal verschillende kamers, vijftig meter van de Grote Markt, Brussel. Handgemaakt, een beetje gek, en uniek in de stad."
+      page_desc: "Hôtel Mozart: een 17e-eeuws huis omgetoverd tot zeventien totaal verschillende kamers, vijftig meter van de Grote Markt, Brussel. Handgemaakt, een beetje gek, en uniek in de stad.",
+      demo_badge: "Conceptdemo — geen officiële site"
     }
   };
 
